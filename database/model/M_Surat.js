@@ -5,7 +5,11 @@ const M_DataSurat = db.define('data_surat', {
     id_surat_izin: {
         type: DataTypes.STRING,
         primaryKey: true
-    }, 
+    },
+    nis_siswa: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     nama_siswa: {
         type: DataTypes.STRING,
         allowNull: false
@@ -23,7 +27,8 @@ const M_DataSurat = db.define('data_surat', {
         allowNull: false
     },
     tanggal: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     waktu: {
         type: DataTypes.STRING,
@@ -33,9 +38,13 @@ const M_DataSurat = db.define('data_surat', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    alasan: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     keterangan: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     id_guru_piket: {
         type: DataTypes.STRING,
