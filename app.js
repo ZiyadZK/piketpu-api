@@ -27,6 +27,12 @@ const port = process.env.PORT || 8080
 
 app.use('/sikap', validateApiKey, route_v1)
 
+app.use((req, res, next) => {
+    res.status(404).json({
+        message: 'Unknown Method'
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server is listening in port ${port}`)
 })

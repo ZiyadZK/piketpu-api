@@ -4,6 +4,24 @@ const { validateBody } = require('../middleware')
 
 const route_v1 = express.Router()
 
+.get('/', async (req, res) => {
+    return res.status(200).json({
+        message: "PIKET API is Connected!"
+    })
+})
+
+.get('/v1', async (req, res) => {
+    return res.status(200).json({
+        message: "PIKET API v1 is Connected!"
+    })
+})
+
+.get('/v1/data', async (req, res) => {
+    return res.status(200).json({
+        message: 'PIKET API of Data v1 is Connected!'
+    })
+})
+
 // DATA AKUN
 .get('/v1/data/akun', async (req, res) => {
     try {
