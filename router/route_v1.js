@@ -168,4 +168,126 @@ const route_v1 = express.Router()
     }
 })
 
+// DATA SURAT
+
+.get('/v1/data/surat', async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+.post('/v1/data/surat', validateBody, async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+.put('/v1/data/surat', validateBody, async (req,res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+.delete('/v1/data/surat', validateBody, async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+// DATA RIWAYAT
+.get('/v1/data/riwayat', async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+.post('/v1/data/riwayat', validateBody, async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+.delete('/v1/data/riwayat', validateBody, async (req, res) => {
+    try {
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
 module.exports = route_v1

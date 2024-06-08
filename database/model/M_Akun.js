@@ -32,6 +32,6 @@ const M_DataAkun = db.define('data_akun', {
     tableName: 'data_akun'
 })
 
-M_DataAkun.sync({ alter: true })
+M_DataAkun.sync()
 
 module.exports = M_DataAkun

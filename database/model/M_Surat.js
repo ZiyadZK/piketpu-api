@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../database_config");
 
-const M_DataSurat = db.define('data_surat', {
+const M_Surat = db.define('data_surat', {
     id_surat_izin: {
         type: DataTypes.STRING,
         primaryKey: true
@@ -56,9 +56,9 @@ const M_DataSurat = db.define('data_surat', {
     }
 }, {
     timestamps: false,
-    tableName: 'data_akun'
+    tableName: 'data_surat'
 })
 
-M_DataSurat.sync({ alter: true })
+M_Surat.sync()
 
-module.exports = M_DataSurat
+module.exports = M_Surat
