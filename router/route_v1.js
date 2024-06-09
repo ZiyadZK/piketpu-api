@@ -1,6 +1,7 @@
 const express = require('express')
 const { F_DataAkun_getAll, F_DataAkun_getUserdata, F_DataAkun_create, F_DataAkun_update, F_DataAkun_delete } = require('../database/function/F_Akun')
 const { validateBody } = require('../middleware')
+const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete } = require('../database/function/F_Surat')
 
 const route_v1 = express.Router()
 
@@ -172,6 +173,14 @@ const route_v1 = express.Router()
 
 .get('/v1/data/surat', async (req, res) => {
     try {
+        const filters = req.query.filters
+
+        const response = await F_Surat_getAll(filters)
+        if(response.success) {
+            return res.status(200).json({
+                data: response.data
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
@@ -189,6 +198,15 @@ const route_v1 = express.Router()
 
 .post('/v1/data/surat', validateBody, async (req, res) => {
     try {
+        const payload = await req.body
+
+        const response = await F_Surat_create(payload)
+
+        if(response.success) {
+            return res.status(200).json({
+                message: 'Berhasil menambahkan data surat yang baru!'
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
@@ -206,6 +224,16 @@ const route_v1 = express.Router()
 
 .put('/v1/data/surat', validateBody, async (req,res) => {
     try {
+        const id_surat = await req.body.id_surat
+        const payload = await req.body.payload
+
+        const response = await F_Surat_update(id_surat, payload)
+
+        if(response.success) {
+            return res.status(200).json({
+                message: 'Berhasil mengubah data surat tersebut!'
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
@@ -223,6 +251,15 @@ const route_v1 = express.Router()
 
 .delete('/v1/data/surat', validateBody, async (req, res) => {
     try {
+        const id_surat = await req.body.id_surat
+
+        const response = await F_Surat_delete(id_surat)
+
+        if(response.success) {
+            return res.status(200).json({
+                message: "Berhasil menghapus data surat tersebut!"
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
