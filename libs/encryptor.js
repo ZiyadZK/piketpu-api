@@ -18,21 +18,23 @@ exports.decryptKey = async (token) => {
     }
 }
 
-exports.encryptKey = async (payload) => {
-    try {
-        const data = typeof(payload) === 'object' ? `${JSON.stringify(payload)}` : String(payload)
-        const token = CryptoJS.AES.encrypt(data, process.env.PUBLIC_KEY)
+exports.encryptKey = async (data) => {
+    let encryptedData
 
-        return {
-            success: true,
-            data: token.toString()
-        }
-    } catch (error) {
-        console.log(error)
+    if(typeof data === 'string') {
+        encryptedData = CryptoJS.AES.encrypt(data, process.env.PUBLIC_KEY).toString()
+    }
 
-        return {
-            success: false,
-            message: error.message
-        }
+    if(typeof data === 'number') {
+        encryptedData = CryptoJS.AES.encrypt(data.toString(), process.env.PUBLIC_KEY).toString()
+    }
+
+    if(typeof data === 'object') {
+        encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), process.env.PUBLIC_KEY).toString()
+    }
+
+    return {
+        success: true,
+        data: encryptedData
     }
 }

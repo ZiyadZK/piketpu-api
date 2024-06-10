@@ -1,3 +1,4 @@
+const { Op } = require("sequelize")
 const { encryptKey } = require("../../libs/encryptor")
 const M_DataAkun = require("../model/M_Akun")
 
@@ -16,11 +17,11 @@ exports.F_DataAkun_getUserdata = async (parameter) => {
             }
         }
 
-        const token = await encryptKey(data.dataValues)
+        const response = await encryptKey(data.dataValues)
         
         return {
             success: true,
-            token
+            token: response.data
         }
     } catch (error) {
         console.log(error)
@@ -81,7 +82,13 @@ exports.F_DataAkun_delete = async (id_akun) => {
     try {
 
         if(Array.isArray(id_akun)) {
-            await Promise.all(id_akun.forEach(async value => await M_DataAkun.destroy({ where: { id_akun: value }})))
+            await M_DataAkun.destroy({
+                where: {
+                    id_akun: {
+                        [Op.in]: id_akun
+                    }
+                }
+            })
         }else{
             await M_DataAkun.destroy({
                 where: {
@@ -109,11 +116,13 @@ exports.F_DataAkun_update = async (id_akun, payload) => {
     try {
         
         if(Array.isArray(id_akun)) {
-            await Promise.all(id_akun.forEach(async value => await M_DataAkun.update(payload, {
+            await M_DataAkun.update(payload, {
                 where: {
-                    id_akun: value
+                    id_akun: {
+                        [Op.in]: id_akun
+                    }
                 }
-            })))
+            })
         }else{
             await M_DataAkun.update(payload, {
                 where: {

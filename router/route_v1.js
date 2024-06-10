@@ -146,6 +146,7 @@ const route_v1 = express.Router()
         const payload = await req.body
 
         const response = await F_DataAkun_getUserdata(payload)
+        console.log(response)
         if(response.success) {
             return res.status(200).json({
                 success: 'Berhasil mendapatkan token userdata!',
