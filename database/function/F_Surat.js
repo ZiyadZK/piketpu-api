@@ -58,20 +58,20 @@ exports.F_Surat_create = async (payload) => {
     }
 }
 
-exports.F_Surat_update = async (id_surat, payload) => {
+exports.F_Surat_update = async (id_surat_izin, payload) => {
     try {
-        if(Array.isArray(id_surat)) {
+        if(Array.isArray(id_surat_izin)) {
             await M_Surat.update(payload, {
                 where: {
-                    id_surat: {
-                        [Op.in]: id_surat
+                    id_surat_izin: {
+                        [Op.in]: id_surat_izin
                     }
                 }
             })
         }else{
             await M_Surat.update(payload, {
                 where: {
-                    id_surat
+                    id_surat_izin
                 }
             })
         }
@@ -89,20 +89,20 @@ exports.F_Surat_update = async (id_surat, payload) => {
     }
 }
 
-exports.F_Surat_delete = async (id_surat) => {
+exports.F_Surat_delete = async (id_surat_izin) => {
     try {
-        if(Array.isArray(id_surat)) {
+        if(Array.isArray(id_surat_izin)) {
             await M_Surat.destroy({
                 where: {
-                    id_surat: {
-                        [Op.in]: id_surat
+                    id_surat_izin: {
+                        [Op.in]: id_surat_izin
                     }
                 }
             })
         }else{
             await M_Surat.destroy({
                 where: {
-                    id_surat
+                    id_surat_izin
                 }
             })
         }

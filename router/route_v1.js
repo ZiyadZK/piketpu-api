@@ -175,7 +175,7 @@ const route_v1 = express.Router()
 .get('/v1/data/surat', async (req, res) => {
     try {
         const filters = req.query.filters
-        
+
         const response = await F_Surat_getAll(filters)
         if(response.success) {
             return res.status(200).json({
@@ -225,10 +225,10 @@ const route_v1 = express.Router()
 
 .put('/v1/data/surat', validateBody, async (req,res) => {
     try {
-        const id_surat = await req.body.id_surat
+        const id_surat_izin = await req.body.id_surat_izin
         const payload = await req.body.payload
 
-        const response = await F_Surat_update(id_surat, payload)
+        const response = await F_Surat_update(id_surat_izin, payload)
 
         if(response.success) {
             return res.status(200).json({
@@ -252,9 +252,9 @@ const route_v1 = express.Router()
 
 .delete('/v1/data/surat', validateBody, async (req, res) => {
     try {
-        const id_surat = await req.body.id_surat
+        const id_surat_izin = await req.body.id_surat_izin
 
-        const response = await F_Surat_delete(id_surat)
+        const response = await F_Surat_delete(id_surat_izin)
 
         if(response.success) {
             return res.status(200).json({
