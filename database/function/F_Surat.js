@@ -7,11 +7,19 @@ exports.F_Surat_getAll = async (parameter) => {
         if(parameter) {
             data = await M_Surat.findAll({
                 where: parameter,
-                raw: true
+                raw: true,
+                order: [
+                    ['waktu', 'DESC'],
+                    ['tanggal', 'DESC']
+                ]
             })            
         }else{
             data = await M_Surat.findAll({
-                raw: true
+                raw: true,
+                order: [
+                    ['waktu', 'DESC'],
+                    ['tanggal', 'DESC']
+                ]
             })
         }
 
