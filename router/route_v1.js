@@ -175,7 +175,7 @@ const route_v1 = express.Router()
 .get('/v1/data/surat', async (req, res) => {
     try {
         const filters = req.query.filters
-
+        
         const response = await F_Surat_getAll(filters)
         if(response.success) {
             return res.status(200).json({
