@@ -14,6 +14,10 @@ const M_DataAkun = db.define('data_akun', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    nickname_akun: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     password_akun: {
         type: DataTypes.STRING,
         allowNull: true
@@ -32,6 +36,6 @@ const M_DataAkun = db.define('data_akun', {
     tableName: 'data_akun'
 })
 
-M_DataAkun.sync()
+M_DataAkun.sync({ alter: true })
 
 module.exports = M_DataAkun
