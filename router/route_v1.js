@@ -2,6 +2,7 @@ const express = require('express')
 const { F_DataAkun_getAll, F_DataAkun_getUserdata, F_DataAkun_create, F_DataAkun_update, F_DataAkun_delete } = require('../database/function/F_Akun')
 const { validateBody } = require('../middleware')
 const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete } = require('../database/function/F_Surat')
+const { F_Riwayat_getAll, F_Riwayat_create, F_Riwayat_delete } = require('../database/function/F_Riwayat')
 
 const route_v1 = express.Router()
 
@@ -279,6 +280,13 @@ const route_v1 = express.Router()
 // DATA RIWAYAT
 .get('/v1/data/riwayat', async (req, res) => {
     try {
+
+        const response = await F_Riwayat_getAll()
+        if(response.success) {
+            return res.status(200).json({
+                data: response.data
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
@@ -296,6 +304,16 @@ const route_v1 = express.Router()
 
 .post('/v1/data/riwayat', validateBody, async (req, res) => {
     try {
+
+        const payload = await req.body
+
+        const response = await F_Riwayat_create(payload)
+
+        if(response.success) {
+            return res.status(200).json({
+                message: 'Berhasil membuat riwayat!'
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
@@ -313,6 +331,14 @@ const route_v1 = express.Router()
 
 .delete('/v1/data/riwayat', validateBody, async (req, res) => {
     try {
+        const no_surat = await req.body.no_surat
+
+        const response = await F_Riwayat_delete(no_surat)
+        if(response.success) {
+            return res.status(200).json({
+                message: 'Berhasil menghapus riwayat!'
+            })
+        }
         
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
