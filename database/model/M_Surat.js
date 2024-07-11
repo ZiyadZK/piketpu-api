@@ -3,8 +3,9 @@ const db = require("../database_config");
 
 const M_Surat = db.define('data_surat', {
     id_surat_izin: {
-        type: DataTypes.STRING,
-        primaryKey: true
+        type: DataTypes.INTEGER(11),
+        primaryKey: true,
+        autoIncrement: true
     },
     nis_siswa: {
         type: DataTypes.STRING,
@@ -46,13 +47,13 @@ const M_Surat = db.define('data_surat', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    id_guru_piket: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    nama_guru_piket: {
-        type: DataTypes.STRING,
-        allowNull: false
+    fk_surat_id_akun: {
+        type: DataTypes.INTEGER(4),
+        allowNull: true,
+        references: {
+            model: 'data_akun',
+            key: 'id_akun'
+        }
     }
 }, {
     timestamps: false,

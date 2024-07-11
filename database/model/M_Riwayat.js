@@ -15,9 +15,13 @@ const M_Riwayat = db.define('data_riwayat', {
         type: DataTypes.STRING(6),
         allowNull: true
     },
-    nama_akun: {
-        type: DataTypes.STRING(100),
-        allowNull: true
+    fk_riwayat_id_akun: {
+        type: DataTypes.INTEGER(3),
+        allowNull: false,
+        references: {
+            model: 'data_akun',
+            key: 'id_akun'
+        }
     },
     aksi: {
         type: DataTypes.STRING(12),
@@ -36,6 +40,5 @@ const M_Riwayat = db.define('data_riwayat', {
     tableName: 'data_riwayat'
 })
 
-M_Riwayat.sync({ alter: true })
 
 module.exports = M_Riwayat
