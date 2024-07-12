@@ -60,6 +60,4 @@ const M_Surat = db.define('data_surat', {
     tableName: 'data_surat'
 })
 
-M_Surat.sync()
-
 module.exports = M_Surat

@@ -1,13 +1,17 @@
 {
   "dependencies": {
+    "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "moment-timezone": "^0.5.45",
     "mysql2": "^3.9.8",
     "nanoid": "^3.3.7",
+    "nodemailer": "^6.9.14",
     "nodemon": "^3.1.1",
     "sequelize": "^6.37.3"
   },
@@ -29,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/ZiyadZK/piketpu-api/issues"
   },
-  "homepage": "https://github.com/ZiyadZK/piketpu-api#readme"
+  "homepage": "https://github.com/ZiyadZK/piketpu-api#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
+  }
 }

@@ -3,6 +3,8 @@ const { F_DataAkun_getAll, F_DataAkun_getUserdata, F_DataAkun_create, F_DataAkun
 const { validateBody } = require('../middleware')
 const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete } = require('../database/function/F_Surat')
 const { F_Riwayat_getAll, F_Riwayat_create, F_Riwayat_delete } = require('../database/function/F_Riwayat')
+const path = require('path');
+const ejs = require('ejs')
 
 const route_v1 = express.Router()
 
@@ -353,5 +355,6 @@ const route_v1 = express.Router()
         })
     }
 })
+
 
 module.exports = route_v1

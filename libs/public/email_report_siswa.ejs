@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIKAP - SURAT ABSENSI SISWA</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Plus Jakarta Sans', sans-serif; font-optical-sizing: auto; height: 100%; width: 100%;">
+    <p>
+        Tampaknya ada beberapa siswa anda yang sudah melebihi 3 absen bulan ini, diantaranya adalah:
+    </p>
+    <br>
+    <div style="display: grid; gap: 1.25rem; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <% siswaArr.forEach(function(siswa) {%>
+            <div style="padding: 1.25rem; border: 1px; background-color: #f4f4f5; border-radius: 0.75rem; width: fit-content; display: flex; align-items: center; width: 100%;">
+                <div style="width: 25%;">
+                    <p style="opacity: 60%">
+                        NAMA SISWA
+                    </p>
+                    <p style="font-weight: bolder;">
+                        <%= siswa.nama_siswa %>
+                    </p>
+                </div>
+                <div style="width: 25%;">
+                    <p style="opacity: 60%">
+                        KELAS
+                    </p>
+                    <p style="font-weight: bolder;">
+                        <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
+                    </p>
+                </div>
+                <div style="width: 25%;">
+                    <p style="opacity: 60%">
+                        JUMLAH SURAT BULAN INI
+                    </p>
+                    <p style="font-weight: bolder;">
+                        <%= siswa.jumlah_absen %> Surat
+                    </p>
+                </div>
+                <div style="width: 25%;">
+                    <p style="opacity: 60%">
+                        DETAIL SISWA
+                    </p>
+                    <a href="https://www.google.com" target="_blank" style="text-decoration-line: underline; color: blue;">
+                        Cek disini
+                    </a>
+                </div>
+            </div>
+            <br>
+        <% });%>
+    </div>
+    <br>
+    <p style="color: red;">
+        Keterangan:
+    </p>
+    <p>
+        Data diatas sudah diolah oleh sistem, yang dimana tidak ada campur tangan pihak lain secara langsung. Jika anda mendapatkan kendala (Data yang tidak relevan) terhadap data diatas, mohon untuk menghubungi Administrator segera!
+    </p>
+</body>
+</html>
