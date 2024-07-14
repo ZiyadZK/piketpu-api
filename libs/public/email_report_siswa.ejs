@@ -10,55 +10,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
 <body style="font-family: 'Plus Jakarta Sans', sans-serif; font-optical-sizing: auto; height: 100%; width: 100%;">
-    <p>
-        Tampaknya ada beberapa siswa anda yang sudah melebihi 3 absen bulan ini, diantaranya adalah:
-    </p>
-    <br>
-    <div style="display: grid; gap: 1.25rem; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr));">
-        <% siswaArr.forEach(function(siswa) {%>
-            <div style="padding: 1.25rem; border: 1px; background-color: #f4f4f5; border-radius: 0.75rem; width: fit-content; display: flex; align-items: center; width: 100%;">
-                <div style="width: 25%;">
-                    <p style="opacity: 60%">
-                        NAMA SISWA
-                    </p>
-                    <p style="font-weight: bolder;">
-                        <%= siswa.nama_siswa %>
-                    </p>
-                </div>
-                <div style="width: 25%;">
-                    <p style="opacity: 60%">
-                        KELAS
-                    </p>
-                    <p style="font-weight: bolder;">
-                        <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
-                    </p>
-                </div>
-                <div style="width: 25%;">
-                    <p style="opacity: 60%">
-                        JUMLAH SURAT BULAN INI
-                    </p>
-                    <p style="font-weight: bolder;">
-                        <%= siswa.jumlah_absen %> Surat
-                    </p>
-                </div>
-                <div style="width: 25%;">
-                    <p style="opacity: 60%">
-                        DETAIL SISWA
-                    </p>
-                    <a href="https://www.google.com" target="_blank" style="text-decoration-line: underline; color: blue;">
-                        Cek disini
-                    </a>
-                </div>
-            </div>
-            <br>
-        <% });%>
-    </div>
-    <br>
-    <p style="color: red;">
-        Keterangan:
-    </p>
-    <p>
-        Data diatas sudah diolah oleh sistem, yang dimana tidak ada campur tangan pihak lain secara langsung. Jika anda mendapatkan kendala (Data yang tidak relevan) terhadap data diatas, mohon untuk menghubungi Administrator segera!
-    </p>
+    <% if(tipe == 'Mengikuti Pelajaran') { %>
+        <p>
+            Melalui surat ini, kami menyampaikan informasi mengenai keterlambatan putra/putri bapak/ibu. Berikut adalah siswa yang terlambat mengikuti pelajaran pada hari ini:
+        </p>
+        <br>
+        <table style="width: 100%; border-collapse: collapse; background-color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <thead>
+                <tr style="background-color: #b91c1c; color: #fff;">
+                    <th style="padding: 10px 15px; text-align: left;">NAMA SISWA</th>
+                    <th style="padding: 10px 15px; text-align: left;">KELAS</th>
+                    <th style="padding: 10px 15px; text-align: left;">JUMLAH KETERLAMBATAN</th>
+                    <th style="padding: 10px 15px; text-align: left;">DETAIL SISWA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% siswaArr.forEach(function(siswa) {%>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.nama_siswa %>
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.jumlah_absen %> Hari
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <a href="#" style="color: #b91c1c; text-decoration: none;">
+                                Cek detail
+                            </a>
+                        </td>
+                    </tr>
+                <% });%>
+            </tbody>
+        </table>
+        <br>
+        <p>
+            Mohon bantuan bapak/ibu untuk mengingatkan siswa ybs agar tidak terlambat mengikuti pelajaran. Atas perhatiannya kami ucapkan terimakasih.
+        </p>
+        <br>
+        <p>
+            Sistem Informasi Kehadiran dan Absensi Piket <br>
+            SMK Pekerjaan Umum Negeri Bandung
+        </p>
+        <br>
+        <ul>
+            <p style="color: red;">
+                Note:
+            </p>
+            <li>
+                Jumlah keterlambatan di atas dihitung berdasarkan data keterlambatan siswa pada bulan ini
+            </li>
+            <li>
+                Data diatas diolah oleh sistem, yang dimana tidak ada campur tangan pihak lain secara langsung. Jika anda mendapatkan kendala (Data yang tidak relevan) terhadap data diatas, mohon untuk menghubungi Administrator segera!
+            </li>
+        </ul>
+    <% } %>
+
+    <% if(tipe == 'Meninggalkan Pelajaran') { %>
+        <p>
+            Melalui surat ini, kami menyampaikan informasi mengenai putra/putri bapak/ibu yang telah meninggalkan pelajaran. Berikut adalah siswa yang meninggalkan pelajaran pada hari ini:
+        </p>
+        <br>
+        <table style="width: 100%; border-collapse: collapse; background-color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <thead>
+                <tr style="background-color: #2563eb; color: #fff;">
+                    <th style="padding: 10px 15px; text-align: left;">NAMA SISWA</th>
+                    <th style="padding: 10px 15px; text-align: left;">KELAS</th>
+                    <th style="padding: 10px 15px; text-align: left;">KETERANGAN</th>
+                    <th style="padding: 10px 15px; text-align: left;">DETAIL SISWA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% siswaArr.forEach(function(siswa) {%>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.nama_siswa %>
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <%= siswa.keterangan %>
+                        </td>
+                        <td style="padding: 10px 15px;">
+                            <a href="#" style="color: #2563eb; text-decoration: none;">
+                                Cek detail
+                            </a>
+                        </td>
+                    </tr>
+                <% });%>
+            </tbody>
+        </table>
+        <br>
+        <p>
+            Sistem Informasi Kehadiran dan Absensi Piket <br>
+            SMK Pekerjaan Umum Negeri Bandung
+        </p>
+        <br>
+        <ul>
+            <p style="color: red;">
+                Note:
+            </p>
+            <li>
+                Data diatas diolah oleh sistem, yang dimana tidak ada campur tangan pihak lain secara langsung. Jika anda mendapatkan kendala (Data yang tidak relevan) terhadap data diatas, mohon untuk menghubungi Administrator segera!
+            </li>
+        </ul>
+    <% } %>
+    
+    
 </body>
 </html>

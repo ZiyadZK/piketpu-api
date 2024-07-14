@@ -11,16 +11,27 @@ exports.report_siswa = async (dataSiswa = []) => {
         const emailData = dataSiswa.map(value => {
             const dataKelas = kelas.find(v => v['kelas'] === value['kelas'] && v['jurusan'] === value['jurusan'] && v['rombel'] === value['rombel'])
 
-            if(dataKelas) {
+            if(value['tipe'] === 'Mengikuti Pelajaran' && value['jumlah_absen'] >= 3) {
                 return {
                     to: [dataKelas['email_wali_kelas']].join(', '),
-                    subject: 'Pemberitahuan Absensi Siswa',
+                    subject: 'LAPORAN KETERLAMBATAN SISWA',
+                    tipe: value['tipe'],
+                    siswaArr: dataSiswa.filter(v => v['kelas'] === value['kelas']).filter(v => v['jurusan'] === value['jurusan']).filter(v => v['rombel'] === value['rombel'])
+                }
+            }
+            
+            if(value['tipe'] === 'Meninggalkan Pelajaran') {
+                return {
+                    to: [dataKelas['email_wali_kelas']].join(', '),
+                    subject: 'LAPORAN IZIN SISWA MENINGGALKAN PELAJARAN',
+                    tipe: value['tipe'],
+                    keterangan: value['keterangan'],
                     siswaArr: dataSiswa.filter(v => v['kelas'] === value['kelas']).filter(v => v['jurusan'] === value['jurusan']).filter(v => v['rombel'] === value['rombel'])
                 }
             }
         })
         console.log(emailData)
-        await report_siswa_to_email(emailData)
+        await report_siswa_to_email(emailData, emailData[0]['tipe'])
     }
 }
 
@@ -45,10 +56,10 @@ const getDataKelas = async () => {
     }
 }
 
-const report_siswa_to_email = async (emailData = []) => {
+const report_siswa_to_email = async (emailData = [], tipe) => {
     try {
         await Promise.all(emailData.map(async value => {
-            const htmlContent = await ejs.renderFile(path.join(__dirname, 'public', 'email_report_siswa.ejs'), { siswaArr: value['siswaArr'] }, { async: true })
+            const htmlContent = await ejs.renderFile(path.join(__dirname, 'public', 'email_report_siswa.ejs'), { siswaArr: value['siswaArr'], tipe }, { async: true })
     
             await sendEmailHtml(value['to'], value['subject'], htmlContent)
         }))

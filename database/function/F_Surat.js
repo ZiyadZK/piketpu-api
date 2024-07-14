@@ -83,29 +83,58 @@ exports.F_Surat_create = async (payload) => {
             let reportedSiswa = []
 
             await Promise.all(payload.map(async value => {
-                let jumlahSurat = await M_Surat.count({
-                    where: {
-                        nis_siswa: value['nis_siswa'],
-                        kelas: value['kelas'],
-                        jurusan: value['jurusan'],
-                        rombel: value['rombel'],
-                        tanggal: {
-                            [Op.between]: [startDate, endDate]
+                // INI TIPE MENGIKUTI PELAJARAN
+                if(value['tipe'] === 'Mengikuti Pelajaran') {
+                    let jumlahSurat = await M_Surat.count({
+                        where: {
+                            nis_siswa: value['nis_siswa'],
+                            kelas: value['kelas'],
+                            jurusan: value['jurusan'],
+                            rombel: value['rombel'],
+                            tanggal: {
+                                [Op.between]: [startDate, endDate]
+                            },
+                            tipe: 'Mengikuti Pelajaran'
                         }
+                    })
+                    
+                    if(jumlahSurat >= 3) {
+                        reportedSiswa.push({
+                            nama_siswa: value['nama_siswa'],
+                            nis: value['nis_siswa'],
+                            kelas: value['kelas'],
+                            jurusan: value['jurusan'],
+                            rombel: value['rombel'],
+                            jumlah_absen: jumlahSurat,
+                            tipe: value['tipe']
+                        })
                     }
-                })
-                
-                if(jumlahSurat >= 3) {
+                }else if(value['tipe'] === 'Meninggalkan Pelajaran') {
+                    let jumlahSurat = await M_Surat.count({
+                        where: {
+                            nis_siswa: value['nis_siswa'],
+                            kelas: value['kelas'],
+                            jurusan: value['jurusan'],
+                            rombel: value['rombel'],
+                            tanggal: {
+                                [Op.between]: [startDate, endDate]
+                            },
+                            tipe: 'Meninggalkan Pelajaran'
+                        }
+                    })
                     reportedSiswa.push({
                         nama_siswa: value['nama_siswa'],
                         nis: value['nis_siswa'],
                         kelas: value['kelas'],
                         jurusan: value['jurusan'],
                         rombel: value['rombel'],
-                        jumlah_absen: jumlahSurat
+                        jumlah_absen: jumlahSurat,
+                        tipe: value['tipe'],
+                        keterangan: value['keterangan']
                     })
                 }
             }))
+
             await report_siswa(reportedSiswa)
         }else{
             await M_Surat.create(payload)
