@@ -4,6 +4,7 @@ const path = require('path')
 const { sendEmailHtml } = require("./mailer")
 
 exports.report_siswa = async (dataSiswa = []) => {
+    if(dataSiswa.length < 1) return
     const response = await getDataKelas()
     if(response.success) {
         const kelas = response.data.data
