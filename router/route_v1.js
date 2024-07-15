@@ -1,10 +1,11 @@
 const express = require('express')
 const { F_DataAkun_getAll, F_DataAkun_getUserdata, F_DataAkun_create, F_DataAkun_update, F_DataAkun_delete } = require('../database/function/F_Akun')
 const { validateBody } = require('../middleware')
-const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete } = require('../database/function/F_Surat')
+const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete, F_Surat_delete_nis } = require('../database/function/F_Surat')
 const { F_Riwayat_getAll, F_Riwayat_create, F_Riwayat_delete } = require('../database/function/F_Riwayat')
 const path = require('path');
 const ejs = require('ejs')
+const { F_Detail_get, F_Detail_getAll_thisMonth, F_Detail_getAll } = require('../database/function/F_Detail')
 
 const route_v1 = express.Router()
 
@@ -279,6 +280,32 @@ const route_v1 = express.Router()
     }
 })
 
+.delete('/v1/data/surat/:nis', async (req, res) => {
+    try {
+        const nis = req.params.nis
+
+        const response = await F_Surat_delete_nis(nis)
+
+        if(response.success) {
+            return res.status(200).json({
+                message: "Berhasil menghapus data surat tersebut!"
+            })
+        }
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: response.message,
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
 // DATA RIWAYAT
 .get('/v1/data/riwayat', async (req, res) => {
     try {
@@ -356,5 +383,35 @@ const route_v1 = express.Router()
     }
 })
 
+// DETAIL
+.get('/v1/data/detail/:nis', async (req, res) => {
+    try {
+        const nis = req.params.nis
+
+        const responseGet = await F_Detail_getAll(nis)
+        const responseGetMonth = await F_Detail_getAll_thisMonth(nis)
+        if(responseGet.success && responseGetMonth.success) {
+            const response = {
+                data_total_semua: responseGet.data,
+                data_total_bulan: responseGetMonth.data
+            }
+            return res.status(200).json({
+                data: response
+            })
+        }
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            error_message: [responseGet.message, responseGetMonth.message],
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
 
 module.exports = route_v1

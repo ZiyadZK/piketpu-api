@@ -212,3 +212,33 @@ exports.F_Surat_delete = async (id_surat_izin) => {
         }
     }
 }
+
+exports.F_Surat_delete_nis = async (nis_siswa) => {
+    try {
+        if(Array.isArray(nis_siswa)) {
+            await M_Surat.destroy({
+                where: {
+                    nis_siswa: {
+                        [Op.in]: nis_siswa
+                    }
+                }
+            })
+        }else{
+            await M_Surat.destroy({
+                where: {
+                    nis_siswa
+                }
+            })
+        }
+
+        return {
+            success: true
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false,
+            message: error.message
+        }
+    }
+}
