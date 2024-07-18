@@ -1,8 +1,13 @@
 const { Op } = require("sequelize")
 const M_Surat = require("../model/M_Surat")
 const M_DataAkun = require("../model/M_Akun")
-const { date_getFirstDayOfMonth, date_getLastDayOfMonth, date_getYear, date_getMonth, date_getMonthRange } = require("../../libs/date")
+const { date_getFirstDayOfMonth, date_getLastDayOfMonth, date_getYear, date_getMonth, date_getMonthRange, date_getDay } = require("../../libs/date")
 const { report_siswa } = require("../../libs/report_siswa")
+const { default: axios } = require("axios")
+const { sendEmailHtml } = require("../../libs/mailer")
+const ejs = require('ejs')
+const path = require('path')
+const { F_Siswa_getAll } = require("./F_Siswa")
 
 exports.F_Surat_getAll = async (parameter) => {
     try {
@@ -233,6 +238,53 @@ exports.F_Surat_delete_nis = async (nis_siswa) => {
 
         return {
             success: true
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false,
+            message: error.message
+        }
+    }
+}
+
+exports.F_Surat_peringatkan_siswa = async (nis_siswa) => {
+    try {
+        const dataSurat = await M_Surat.findAll({
+            raw: true,
+            where: {
+                nis_siswa,
+                tipe: 'Mengikuti Pelajaran'
+            },
+            order: [
+                ['tanggal', 'DESC'],
+                ['waktu', 'DESC'],
+            ],
+        })
+
+        const responseSiswa = await F_Siswa_getAll()
+        if(responseSiswa.success) {
+            const dataSiswa = responseSiswa.data.data.find(value => value['nis'] === nis_siswa)
+            const payload = {
+                nama_siswa: dataSiswa['nama_siswa'],
+                suratArr: dataSurat.map(value => ({
+                    ...value, 
+                    tanggal: `${date_getDay(value['tanggal'])} ${date_getMonth('string', value['tanggal'])} ${date_getYear(value['tanggal'])}`
+                }))
+            }
+    
+            const htmlContent = await ejs.renderFile(path.join(__dirname, 'public', 'email_peringatkan_siswa.ejs'), payload, { async: true })
+
+            // await sendEmailHtml(`${dataSiswa['nis']}@smkpunegerijabar.sch.id`, 'PERINGATAN KETERLAMBATAN MASUK SEKOLAH', htmlContent)
+            await sendEmailHtml('kakangtea74@gmail.com', 'PERINGATAN KETERLAMBATAN MASUK SEKOLAH', htmlContent)
+
+            return {
+                success: true
+            }
+        }else{
+            return {
+                success: false
+            }
         }
     } catch (error) {
         console.log(error)
