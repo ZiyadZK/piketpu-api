@@ -1,7 +1,7 @@
 const express = require('express')
 const { F_DataAkun_getAll, F_DataAkun_getUserdata, F_DataAkun_create, F_DataAkun_update, F_DataAkun_delete } = require('../database/function/F_Akun')
 const { validateBody } = require('../middleware')
-const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete, F_Surat_delete_nis } = require('../database/function/F_Surat')
+const { F_Surat_getAll, F_Surat_create, F_Surat_update, F_Surat_delete, F_Surat_delete_nis, F_Surat_peringatkan_siswa } = require('../database/function/F_Surat')
 const { F_Riwayat_getAll, F_Riwayat_create, F_Riwayat_delete } = require('../database/function/F_Riwayat')
 const path = require('path');
 const ejs = require('ejs')
@@ -403,6 +403,32 @@ const route_v1 = express.Router()
         return res.status(400).json({
             message: 'Terdapat error saat memproses data, hubungi Administrator data',
             error_message: [responseGet.message, responseGetMonth.message],
+            tipe: 'DATABASE ERROR'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
+            tipe: 'INTERNAL SERVER'
+        })
+    }
+})
+
+// PERINGATAN SISWA
+.post('/v1/peringatkan-siswa', validateBody, async (req, res) => {
+    try {
+        const nis = await req.body.nis_siswa
+
+        const response = await F_Surat_peringatkan_siswa(nis)
+        if(response.success) {
+            return res.status(200).json({
+                message: `Berhasil memperingatkan siswa dengan nis ${nis}`,
+                nis
+            })
+        }
+        
+        return res.status(400).json({
+            message: 'Terdapat error saat memproses data, hubungi Administrator data',
             tipe: 'DATABASE ERROR'
         })
     } catch (error) {
