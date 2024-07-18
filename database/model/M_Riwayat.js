@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../database_config");
 
 const M_Riwayat = db.define('data_riwayat', {
-    no_surat: {
+    no_riwayat: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
