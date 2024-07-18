@@ -275,8 +275,7 @@ exports.F_Surat_peringatkan_siswa = async (nis_siswa) => {
     
             const htmlContent = await ejs.renderFile(path.join(__dirname, 'public', 'email_peringatkan_siswa.ejs'), payload, { async: true })
 
-            // await sendEmailHtml(`${dataSiswa['nis']}@smkpunegerijabar.sch.id`, 'PERINGATAN KETERLAMBATAN MASUK SEKOLAH', htmlContent)
-            await sendEmailHtml('kakangtea74@gmail.com', 'PERINGATAN KETERLAMBATAN MASUK SEKOLAH', htmlContent)
+            await sendEmailHtml(`${dataSiswa['nis']}@smkpunegerijabar.sch.id`, 'PERINGATAN KETERLAMBATAN MASUK SEKOLAH', htmlContent)
 
             return {
                 success: true
