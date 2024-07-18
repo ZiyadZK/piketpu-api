@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIKAP - SURAT ABSENSI SISWA</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Plus Jakarta Sans', sans-serif; font-optical-sizing: auto; height: 100%; width: 100%;">
+    <p>
+        Kepada <strong>
+            <%= nama_siswa %>
+        </strong>,
+    </p>
+    <br>
+    <p>
+        Kami ingin menginformasikan bahwa kami mencatat <strong style="color: red;">Anda datang terlambat</strong> ke sekolah pada tanggal
+    </p>
+    <table style="width: 100%; border-collapse: collapse; background-color: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <thead>
+            <tr style="background-color: #b91c1c; color: #fff;">
+                <th style="padding: 10px 15px; text-align: left;">TANGGAL</th>
+                <th style="padding: 10px 15px; text-align: left;">KETERANGAN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% suratArr.forEach(function(surat) {%>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px 15px;">
+                        <%= surat.tanggal %>, pukul <%= surat.waktu %>
+                    </td>
+                    <td style="padding: 10px 15px;">
+                        <%= surat.keterangan %>
+                    </td>
+                </tr>
+            <% });%>
+        </tbody>
+    </table>
+    <p>
+        Ketepatan waktu adalah salah satu komponen penting dalam menjaga disiplin dan tanggung jawab sebagai siswa di sekolah kami. Oleh karena itu, kami mengharapkan Anda segera melaporkan diri kepada <strong>Wali Kelas</strong> dan <strong>Guru BK</strong> Anda untuk mencari solusi agar keterlambatan tidak terulang di masa depan.
+    </p>
+    <p>
+        Terima kasih atas perhatian dan kerja samanya.
+    </p>
+    <br>
+    <p>
+        Salam Hormat, <br> <br>
+        <strong>
+            Sistem Informasi Kehadiran dan Absensi Piket
+        </strong> <br>
+        <strong>
+            SMK Pekerjaan Umum Negeri Bandung
+        </strong>
+    </p>
+    <br>
+    <ul>
+        <p style="color: red;">
+            Note:
+        </p>
+        <li>
+            Data diatas diolah oleh sistem, yang dimana tidak ada campur tangan pihak lain secara langsung. Jika anda mendapatkan kendala (Data yang tidak relevan) terhadap data diatas, mohon untuk menghubungi Administrator segera!
+        </li>
+    </ul>
+
+    
+    
+    
+</body>
+</html>

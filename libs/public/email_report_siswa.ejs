@@ -19,6 +19,7 @@
             <thead>
                 <tr style="background-color: #b91c1c; color: #fff;">
                     <th style="padding: 10px 15px; text-align: left;">NAMA SISWA</th>
+                    <th style="padding: 10px 15px; text-align: left;">NIS</th>
                     <th style="padding: 10px 15px; text-align: left;">KELAS</th>
                     <th style="padding: 10px 15px; text-align: left;">JUMLAH KETERLAMBATAN</th>
                     <th style="padding: 10px 15px; text-align: left;">DETAIL SISWA</th>
@@ -31,13 +32,16 @@
                             <%= siswa.nama_siswa %>
                         </td>
                         <td style="padding: 10px 15px;">
+                            <%= siswa.nis %>
+                        </td>
+                        <td style="padding: 10px 15px;">
                             <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
                         </td>
                         <td style="padding: 10px 15px;">
                             <%= siswa.jumlah_absen %> Hari
                         </td>
                         <td style="padding: 10px 15px;">
-                            <a href="https://sikap.smkpunegerijabar.sch.id/detail/<%= siswa.nis_siswa %>" target="_blank" style="color: #b91c1c; text-decoration: none;">
+                            <a href="https://sikap.smkpunegerijabar.sch.id/ceksiswa?nis=<%= siswa.nis %>" target="_blank" style="color: #b91c1c; text-decoration: none;">
                                 Cek detail
                             </a>
                         </td>
@@ -77,6 +81,7 @@
             <thead>
                 <tr style="background-color: #2563eb; color: #fff;">
                     <th style="padding: 10px 15px; text-align: left;">NAMA SISWA</th>
+                    <th style="padding: 10px 15px; text-align: left;">NIS</th>
                     <th style="padding: 10px 15px; text-align: left;">KELAS</th>
                     <th style="padding: 10px 15px; text-align: left;">KETERANGAN</th>
                     <th style="padding: 10px 15px; text-align: left;">DETAIL SISWA</th>
@@ -89,13 +94,16 @@
                             <%= siswa.nama_siswa %>
                         </td>
                         <td style="padding: 10px 15px;">
+                            <%= siswa.nis %>
+                        </td>
+                        <td style="padding: 10px 15px;">
                             <%= siswa.kelas %> <%= siswa.jurusan %> <%= siswa.rombel %>
                         </td>
                         <td style="padding: 10px 15px;">
                             <%= siswa.keterangan %>
                         </td>
                         <td style="padding: 10px 15px;">
-                            <a href="https://sikap.smkpunegerijabar.sch.id/detail/<%= siswa.nis_siswa %>" target="_blank" style="color: #2563eb; text-decoration: none;">
+                            <a href="https://sikap.smkpunegerijabar.sch.id/ceksiswa?nis=<%= siswa.nis %>" target="_blank" style="color: #2563eb; text-decoration: none;">
                                 Cek detail
                             </a>
                         </td>
