@@ -9,14 +9,6 @@ const M_DataAkun = db.define('data_akun', {
         primaryKey: true,
         autoIncrement: true
     },
-    email_akun: {
-        type: DataTypes.STRING,
-        unique: 'email_akun'
-    },
-    nama_akun: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     nickname_akun: {
         type: DataTypes.STRING,
         allowNull: true
